@@ -21,3 +21,20 @@
                    (+ acc valor))))
         0
         @transacoes))
+
+(defn carteira []
+  (let [agrupar (group-by :ticker @transacoes)]
+    (reduce
+      (fn [acc [ticker ts]]
+        (let [qtd (reduce
+                    (fn [soma {:keys [tipo quantidade]}]
+                      (if (= tipo "COMPRA")
+                        (+ soma quantidade)
+                        (- soma quantidade)))
+                    0
+                    ts)]
+          (if (pos? qtd)
+            (conj acc {:ticker ticker :quantidade qtd})
+            acc)))
+      []
+      agrupar)))

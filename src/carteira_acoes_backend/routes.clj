@@ -36,4 +36,6 @@
                                                            (Integer/parseInt fim))})
 
            (GET "/saldo" []
-                {:status 200 :body {:saldo (db/saldo)}}))
+             {:status 200
+              :body {:saldo (db/saldo)
+                     :carteira (db/carteira)}}))
