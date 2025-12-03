@@ -1,5 +1,5 @@
 (ns carteira-acoes-backend.core
-    (:gen-class))
+  (:gen-class))
 
 (defn -main []
-      (println "API carregada. Utilize: lein ring server"))
+  (println "API carregada. Utilize: lein ring server"))
