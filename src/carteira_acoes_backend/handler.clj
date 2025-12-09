@@ -5,6 +5,6 @@
 
 (def app
   (-> api-routes
-      (wrap-json-body {:keywords? true})
-      wrap-json-response
+      (wrap-json-body {:keywords? true}) ;; Transforma em map
+      wrap-json-response ;; Transforma em JSON
       (wrap-defaults api-defaults)))

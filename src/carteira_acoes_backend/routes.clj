@@ -12,7 +12,6 @@
 
 (defroutes api-routes
 
-  ;; API ok
   (GET "/" []
        {:status 200 :body {:mensagem "API carteira de acoes ativa"}})
 
@@ -20,7 +19,6 @@
   (GET "/acao/:ticker" [ticker]
        {:status 200 :body (brapi/buscar-acao ticker)})
 
-  ;; Compra
   (POST "/compra" {body :body}
         (let [{:keys [ticker quantidade data]} body
               data-local (dt/parse-ddmmyyyy data)
@@ -34,7 +32,6 @@
           {:status 200 :body {:status "OK"
                               :transacao (json-transacao trans)}}))
 
-  ;; Venda
   (POST "/venda" {body :body}
         (let [{:keys [ticker quantidade data]} body
               data-local (dt/parse-ddmmyyyy data)
@@ -57,7 +54,6 @@
               {:status 200 :body {:mensagem "Venda registrada."
                                   :transacao (json-transacao trans)}}))))
 
-  ;; Extrato por período
   (GET "/extrato" [inicio fim]
        (let [i (dt/parse-ddmmyyyy inicio)
              f (dt/parse-ddmmyyyy fim)]
@@ -65,7 +61,6 @@
           :body (map json-transacao
                      (db/filtrar-por-periodo i f))}))
 
-  ;; Saldo + carteira
   (GET "/saldo" []
        (let [s (db/saldo)
              c (db/carteira)]
